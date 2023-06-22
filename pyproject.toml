@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "translate_dataset"
+version = "0.1.0"
+description = ""
+authors = ["sildolfogomes <sildolfo.neto@eldorado.org.br>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "^1.23.1"
+pandas = "^1.4.3"
+pre-commit = "^2.20.0"
+black = "^22.6.0"
+flake8 = "^5.0.3"
+isort = "^5.10.1"
+interrogate = "^1.5.0"
+Hydra = "^2.5"
+dvc = "^2.17.0"
+nbstripout = "^0.6.0"
+pdoc = "^12.0.2"
+
+[tool.poetry.dev-dependencies]
+matplotlib = "^3.5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
