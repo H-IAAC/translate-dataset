@@ -34,3 +34,13 @@ clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
 	rm -rf .pytest_cache
+
+step12: verificar_restricoes dividir_texto
+
+# Regra para verificar as restrições do arquivo CSV
+verificar_restricoes:
+	python verificar_restricoes_csv.py caminho_arquivo.csv
+
+# Regra para dividir o texto em partes menores
+dividir_texto:
+	python dividir_texto_csv.py caminho_arquivo.csv
