@@ -17,6 +17,7 @@ Hydra = "^2.5"
 dvc = "^2.17.0"
 nbstripout = "^0.6.0"
 pdoc = "^12.0.2"
+google-cloud-translate = "^3.11.1"
 
 [tool.poetry.dev-dependencies]
 matplotlib = "^3.5.2"

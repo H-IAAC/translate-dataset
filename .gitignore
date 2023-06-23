@@ -130,3 +130,10 @@ dmypy.json
 
 # VSCode
 /.vscode
+
+# CSV
+*.csv
+
+# Credentials
+skilful-answer-390621-00fe41eacd9e.json
+credentials.json
