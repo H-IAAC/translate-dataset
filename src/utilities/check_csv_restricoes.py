@@ -1,36 +1,35 @@
-import sys
-import logging
+"""Módulo para verificar restrições em arquivos CSV."""
+
 import csv
+import logging
+import sys
 
 
 def verificar_restricoes_csv(caminho_arquivo: str) -> None:
-    """
-    Verifica as restrições de um arquivo CSV.
+    """Verifica as restrições de um arquivo CSV.
 
     Args:
-        caminho_arquivo: O caminho para o arquivo CSV.
-
-    Returns:
-        None
+        caminho_arquivo (str): O caminho para o arquivo CSV.
 
     Raises:
         FileNotFoundError: Se o arquivo especificado não for encontrado.
         UnicodeDecodeError: Se ocorrer um erro de decodificação do arquivo CSV.
         csv.Error: Se ocorrer um erro relacionado à leitura do arquivo CSV.
     """
+
     # Configurar o logger
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
 
     # Configurar o handler para imprimir os logs no console
-    handler = logging.StreamHandler()
+    handler = logging.StreamHandler(sys.stdout)
     handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
     try:
-        with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo_csv:
+        with open(caminho_arquivo, "r", encoding="utf-8") as arquivo_csv:
             leitor_csv = csv.reader(arquivo_csv)
 
             # Verificar se o arquivo está vazio
@@ -53,27 +52,26 @@ def verificar_restricoes_csv(caminho_arquivo: str) -> None:
             # Verificar o conteúdo das colunas
             for linha in leitor_csv:
                 if len(linha) != numero_colunas:
-                    logger.info("O arquivo CSV possui linhas com números de colunas diferentes.")
+                    logger.info(
+                        "O arquivo CSV possui linhas com números de colunas diferentes."
+                    )
                     return
 
     except FileNotFoundError:
-        logger.exception(f"O arquivo CSV '{caminho_arquivo}' não foi encontrado.")
+        logger.exception("O arquivo CSV '%s' não foi encontrado.", caminho_arquivo)
         raise
 
     except UnicodeDecodeError:
-        logger.exception(f"Erro de decodificação do arquivo CSV '{caminho_arquivo}'.")
+        logger.exception("Erro de decodificação do arquivo CSV '%s'.", caminho_arquivo)
         raise
 
     except csv.Error:
-        logger.exception(f"Erro durante a leitura do arquivo CSV '{caminho_arquivo}'.")
+        logger.exception("Erro durante a leitura do arquivo CSV '%s'.", caminho_arquivo)
         raise
 
     logger.info("O arquivo CSV atende a todas as restrições.")
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Uso: python verificar_restricoes_csv.py caminho_arquivo")
-        sys.exit(1)
 
-    caminho_arquivo = sys.argv[1]
-    verificar_restricoes_csv(caminho_arquivo)
+if __name__ == "__main__":
+    caminho_arquivo_original = input("Digite o caminho do arquivo CSV: ")
+    verificar_restricoes_csv(caminho_arquivo_original)

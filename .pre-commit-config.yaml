@@ -14,6 +14,9 @@ repos:
           [
             "-rn", # Only display messages
             "-sn", # Don't display the score
+            "--max-args=7", # Allow up to 10 arguments
+            "--max-locals=16", # Allow up to 16 local variables
+            "--ignore=tests", # Ignore the tests directory
           ]
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
@@ -27,3 +30,13 @@ repos:
     rev: 'v1.4.1'  # Use the sha / tag you want to point at
     hooks:
       - id: mypy
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        stages: [commit]
+        language: system
+        entry: pytest
+        types: [python]
+        args: ["-v"]

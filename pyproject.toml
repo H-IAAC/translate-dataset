@@ -18,6 +18,11 @@ dvc = "^2.17.0"
 nbstripout = "^0.6.0"
 pdoc = "^12.0.2"
 google-cloud-translate = "^3.11.1"
+pytest = "^7.4.0"
+pylint = "^2.17.4"
+tree = "^0.2.4"
+jupyter = "^1.0.0"
+ipykernel = "^6.23.3"
 
 [tool.poetry.dev-dependencies]
 matplotlib = "^3.5.2"
