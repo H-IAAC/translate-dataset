@@ -1,6 +1,9 @@
 .PHONY: notebook docs
 .EXPORT_ALL_VARIABLES:
 
+setup: 
+	initialize_git install
+
 install: 
 	@echo "Installing..."
 	poetry install
@@ -15,8 +18,6 @@ initialize_git:
 
 pull_data:
 	poetry run dvc pull
-
-setup: initialize_git install
 
 test:
 	pytest
@@ -38,9 +39,20 @@ clean:
 # Regra para verificar as restrições do arquivo CSV
 check_restricoes:
 	@echo "Verificando restrições do arquivo CSV..."
-	poetry run python src/utilities/check_csv_restricoes.py
+	poetry run python src/utilities/check_csv_restricoes.py $(ARQUIVO_ENTRADA)
 
 # Regra para quebrar o texto em sentenças
 break_text:
 	@echo "Quebrando texto em sentenças..."
-	poetry run python src/utilities/break_text.py
+	poetry run python src/utilities/break_text.py $(ARQUIVO_ENTRADA)
+
+# Regra para traduzir o texto
+translate:
+	@echo "Traduzindo texto..."
+	poetry run python src/utilities/translate.py
+
+# Regra para verificar restrições e quebrar o texto
+verificar_e_quebrar:
+	@echo "Verificando restrições e quebrando o texto..."
+	@$(MAKE) check_restricoes ARQUIVO_ENTRADA=$(ARQUIVO_ENTRADA)
+	@$(MAKE) break_text ARQUIVO_ENTRADA=$(ARQUIVO_ENTRADA)

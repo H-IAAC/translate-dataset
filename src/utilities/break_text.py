@@ -123,7 +123,6 @@ class CSVProcessor:
             leitor_csv = csv.reader(arquivo_csv)
             cabecalho = next(leitor_csv)
             coluna_indice = cabecalho.index(self.nome_coluna)
-            indice_coluna_interesse = cabecalho.index(self.nome_coluna)
             for indice_linha, linha in enumerate(leitor_csv):
                 if indice_linha >= self.num_linhas:
                     break
@@ -139,7 +138,7 @@ class CSVProcessor:
                         nome_arquivo, "w", encoding="utf-8", newline=""
                     ) as arquivo_saida:
                         escritor_csv = csv.writer(arquivo_saida)
-                        escritor_csv.writerow([self.nome_coluna])  # Escrever apenas a coluna de interesse
+                        escritor_csv.writerow([self.nome_coluna])
                         escritor_csv.writerow([subtexto])
                 self.monitorar_progresso(indice_linha, self.num_linhas)
 
