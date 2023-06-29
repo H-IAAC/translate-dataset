@@ -95,7 +95,6 @@ class CSVProcessor:
         for arquivo in arquivos_existentes:
             os.remove(arquivo)
 
-        contador_linhas = 0
         if self.contar_linhas_csv() > self.num_linhas:
             self.dividir_texto_pandas(nome_arquivo_base, pasta_arquivo)
         else:
@@ -124,6 +123,7 @@ class CSVProcessor:
             leitor_csv = csv.reader(arquivo_csv)
             cabecalho = next(leitor_csv)
             coluna_indice = cabecalho.index(self.nome_coluna)
+            indice_coluna_interesse = cabecalho.index(self.nome_coluna)
             for indice_linha, linha in enumerate(leitor_csv):
                 if indice_linha >= self.num_linhas:
                     break
@@ -139,13 +139,10 @@ class CSVProcessor:
                         nome_arquivo, "w", encoding="utf-8", newline=""
                     ) as arquivo_saida:
                         escritor_csv = csv.writer(arquivo_saida)
-                        escritor_csv.writerow(cabecalho)
-                        escritor_csv.writerow(
-                            linha[:coluna_indice]
-                            + [subtexto]
-                            + linha[coluna_indice + 1 :]
-                        )
+                        escritor_csv.writerow([self.nome_coluna])  # Escrever apenas a coluna de interesse
+                        escritor_csv.writerow([subtexto])
                 self.monitorar_progresso(indice_linha, self.num_linhas)
+
 
     def dividir_texto_pandas(self, nome_arquivo_base: str, pasta_arquivo: str) -> None:
         """
@@ -158,8 +155,8 @@ class CSVProcessor:
         data_frame = pd.read_csv(
             self.caminho_arquivo, engine="python", nrows=self.num_linhas
         )
-        for indice_linha, linha in data_frame.iterrows():
-            texto = linha[self.nome_coluna]
+        coluna_interesse = data_frame[self.nome_coluna]
+        for indice_linha, texto in enumerate(coluna_interesse):
             subtextos = self.dividir_texto_em_subtextos(texto)
             for indice_subtexto, subtexto in enumerate(subtextos):
                 nome_arquivo = os.path.join(
@@ -167,8 +164,8 @@ class CSVProcessor:
                     f"{nome_arquivo_base}_parte_{indice_linha + 1}_"
                     f"{indice_subtexto + 1}.csv",
                 )
-                data_frame.loc[indice_linha, self.nome_coluna] = subtexto
-                data_frame.to_csv(nome_arquivo, index=False)
+                data_frame_temporario = pd.DataFrame({self.nome_coluna: [subtexto]})
+                data_frame_temporario.to_csv(nome_arquivo, index=False)
             self.monitorar_progresso(indice_linha, self.num_linhas)
 
     @staticmethod
