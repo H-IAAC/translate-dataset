@@ -112,9 +112,7 @@ class CSVProcessor:
             total_linhas = sum(1 for linha in arquivo_csv)
         return total_linhas
 
-    def dividir_texto_csv(
-        self, nome_arquivo_base: str, pasta_arquivo: str
-    ) -> None:
+    def dividir_texto_csv(self, nome_arquivo_base: str, pasta_arquivo: str) -> None:
         """
         Divide o texto em um arquivo CSV.
 
@@ -149,9 +147,7 @@ class CSVProcessor:
                         )
                 self.monitorar_progresso(indice_linha, self.num_linhas)
 
-    def dividir_texto_pandas(
-        self, nome_arquivo_base: str, pasta_arquivo: str
-    ) -> None:
+    def dividir_texto_pandas(self, nome_arquivo_base: str, pasta_arquivo: str) -> None:
         """
         Divide o texto em um arquivo CSV usando pandas.
 

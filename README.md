@@ -7,7 +7,4 @@ Tools for translate dataset usin
 
 ## Team:
 
-* Coordenador: Sildolfo Gomes (amparo.munoz@eldorado.org.br)
-* Especialista Android: Felipe Augusto (felipe.augusto@eldorado.org.br)
-* Especialista Android: Daniel Miranda (daniel.miranda@eldorado.org.br)
-
+* Coordenador: Sildolfo Gomes (sildolfo.neto@eldorado.org.br)
