@@ -142,7 +142,6 @@ class CSVProcessor:
                         escritor_csv.writerow([subtexto])
                 self.monitorar_progresso(indice_linha, self.num_linhas)
 
-
     def dividir_texto_pandas(self, nome_arquivo_base: str, pasta_arquivo: str) -> None:
         """
         Divide o texto em um arquivo CSV usando pandas.

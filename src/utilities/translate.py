@@ -26,7 +26,10 @@ import os
 
 from google.cloud import translate_v2 as translate
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 
 def traduzir_csv(
     caminho_pasta_entrada,
@@ -39,15 +42,15 @@ def traduzir_csv(
     e salva os arquivos traduzidos na pasta de saída.
 
     Args:
-        caminho_pasta_entrada (str): 
+        caminho_pasta_entrada (str):
             O caminho da pasta de entrada contendo os arquivos CSV a serem traduzidos.
-        caminho_pasta_saida (str, optional): 
+        caminho_pasta_saida (str, optional):
             O caminho da pasta de saída onde os arquivos traduzidos serão salvos.
-            
+
             Se não for fornecido, será criada uma pasta "traducao" dentro da pasta de entrada.
-        idioma_destino (str, optional): 
+        idioma_destino (str, optional):
             O idioma de destino para a tradução. Default é "pt" (português).
-        caminho_chave_api (str, optional): 
+        caminho_chave_api (str, optional):
             O caminho do arquivo JSON contendo a chave de API do Google Translate.
 
     """
@@ -100,7 +103,7 @@ def traduzir_arquivo_csv(
         caminho_arquivo_entrada (str): O caminho do arquivo CSV de entrada.
         caminho_arquivo_saida (str): O caminho do arquivo CSV de saída traduzido.
         idioma_destino (str): O idioma de destino para a tradução.
-        caminho_chave_api (str): 
+        caminho_chave_api (str):
             O caminho do arquivo JSON contendo a chave de API do Google Translate.
 
     """
@@ -128,7 +131,7 @@ def traduzir_texto(texto, idioma_destino, caminho_chave_api):
     Args:
         texto (str): O texto a ser traduzido.
         idioma_destino (str): O idioma de destino para a tradução.
-        caminho_chave_api (str): 
+        caminho_chave_api (str):
             O caminho do arquivo JSON contendo a chave de API do Google Translate.
 
     Returns:
@@ -144,7 +147,9 @@ def traduzir_texto(texto, idioma_destino, caminho_chave_api):
 if __name__ == "__main__":
     # Configuração dos parâmetros de tradução
     caminho_pasta_entrada_original = input("Digite o caminho da pasta de arquivo CSV: ")
-    caminho_pasta_saida_traduzida = input("Digite o caminho do destino do arquivo CSV traduzido: ")
+    caminho_pasta_saida_traduzida = input(
+        "Digite o caminho do destino do arquivo CSV traduzido: "
+    )
     idioma_traducao = input("Digite o idioma de tradução: ")
     caminho_chave_api_atual = input("Digite o caminho da chave API: ")
 
@@ -153,5 +158,5 @@ if __name__ == "__main__":
         caminho_pasta_entrada_original,
         caminho_pasta_saida_traduzida,
         idioma_traducao,
-        caminho_chave_api_atual
+        caminho_chave_api_atual,
     )
