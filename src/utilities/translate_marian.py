@@ -20,6 +20,7 @@ Exemplo de uso:
 import csv
 import logging
 import os
+from transformers import MarianMTModel, MarianTokenizer
 
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
@@ -58,7 +59,6 @@ def traduzir_csv(caminho_pasta_entrada, caminho_pasta_saida=None, idioma_destino
     for arquivo_csv in arquivos_csv:
         caminho_arquivo_entrada = os.path.join(caminho_pasta_entrada, arquivo_csv)
         caminho_arquivo_saida = os.path.join(caminho_pasta_saida, arquivo_csv)
-        print(arquivo_csv)
         traduzir_arquivo_csv(
             caminho_arquivo_entrada, caminho_arquivo_saida, idioma_destino
         )
@@ -98,7 +98,6 @@ def traduzir_arquivo_csv(
 
         for linha in leitor_csv:
             texto = linha[0]
-            print("linha traduzida:   ", linha[0])
             traducao = traduzir_marianmt(texto)
 
             traducoes.append([traducao])
@@ -111,24 +110,33 @@ def traduzir_arquivo_csv(
 
 
 def traduzir_marianmt(sentence):
-    model_name = "Helsinki-NLP/opus-mt-tc-en-pt_br"
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+    model_name = "Helsinki-NLP/opus-mt-en-ROMANCE"
+    tokenizer = MarianTokenizer.from_pretrained(model_name)
+    model = MarianMTModel.from_pretrained(model_name)
 
-    target_language = "pt"  # Change this to the desired target language code
-    batch = tokenizer(sentence, padding=True, truncation=True, return_tensors="pt")
-    translated_ids = model.generate(**batch, target_language=target_language)
-    translated_sentences = tokenizer.batch_decode(
-        translated_ids, skip_special_tokens=True
+    inputs = tokenizer('>>pt<<' + sentence if len(sentence) < 512 else '>>pt<<' + sentence[:512] , return_tensors="pt", padding=True)   
+
+    output_sequences = model.generate(
+        input_ids=inputs["input_ids"],
+        attention_mask=inputs["attention_mask"],
+        do_sample=False,  # disable sampling to test if batching affects output,
+        max_length=1024
     )
-    print(translated_sentences)
-    return translated_sentences
+    sentence_decoded = tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
+    print("Traducao:" , sentence_decoded)
+    return sentence_decoded
 
 
 if __name__ == "__main__":
     # Configuração dos parâmetros de tradução
-    caminho_pasta_entrada_original = "/home/guilhermeramirez/nlp/translate-dataset/data/proc/divididos" # input("Digite o caminho da pasta de arquivo CSV: ")
-    caminho_pasta_saida_traduzida = "/home/guilhermeramirez/nlp/translate-dataset/data" # input(
+    #caminho_pasta_entrada_original = "/home/guilhermeramirez/nlp/translate-dataset/data/proc/divididos"  # input("Digite o caminho da pasta de arquivo CSV: ")
+    #caminho_pasta_saida_traduzida = (
+    #    "/home/guilhermeramirez/nlp/translate-dataset/data"  # input(
+    #)
+    caminho_pasta_entrada_original = input("Digite o caminho da pasta de arquivo CSV: ")
+    caminho_pasta_saida_traduzida = input(
+        "Digite o caminho do destino do arquivo CSV traduzido: "
+    )
     #    "Digite o caminho do destino do arquivo CSV traduzido: "
     # )
     idioma_traducao = "pt"  # input("Digite o idioma de tradução: ")

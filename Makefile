@@ -59,4 +59,8 @@ verificar_e_quebrar:
 
 translate_marian:
 	@echo "Traduzindo texto..."	
-	python3 src/utilities/translate_marian.py
+	poetry run python3 src/utilities/translate_marian.py
+
+translate_t5:
+	@echo "Traduzindo texto..."	
+	poetry run python3 src/utilities/translate_t5.py
