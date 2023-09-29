@@ -542,6 +542,17 @@ webencodings = "*"
 css = ["tinycss2 (>=1.1.0,<1.2)"]
 
 [[package]]
+name = "braceexpand"
+version = "0.1.7"
+description = "Bash-style brace expansion for Python"
+optional = false
+python-versions = "*"
+files = [
+    {file = "braceexpand-0.1.7-py2.py3-none-any.whl", hash = "sha256:91332d53de7828103dcae5773fb43bc34950b0c8160e35e0f44c4427a3b85014"},
+    {file = "braceexpand-0.1.7.tar.gz", hash = "sha256:e6e539bd20eaea53547472ff94f4fb5c3d3bf9d0a89388c4b56663aba765f705"},
+]
+
+[[package]]
 name = "cachetools"
 version = "5.3.1"
 description = "Extensible memoizing collections and decorators"
@@ -5680,6 +5691,22 @@ docs = ["furo", "sphinx", "sphinx-copybutton", "sphinx-inline-tabs", "sphinx-not
 tests = ["pytest", "pytest-cov"]
 
 [[package]]
+name = "webdataset"
+version = "0.2.57"
+description = "Record sequential storage for deep learning."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "webdataset-0.2.57-py3-none-any.whl", hash = "sha256:67e8b1ed64c74d7ab2e9a56ee7e0cccfeeb48ab25e9e51ef50b281cfdf419f8c"},
+    {file = "webdataset-0.2.57.tar.gz", hash = "sha256:c55ca0c62e783c357ebb1b6dcc2c9cc0c371f07d0b4842f650e7010f0a04f166"},
+]
+
+[package.dependencies]
+braceexpand = "*"
+numpy = "*"
+pyyaml = "*"
+
+[[package]]
 name = "webencodings"
 version = "0.5.1"
 description = "Character encoding aliases for legacy web content"
@@ -5935,4 +5962,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "960a91a0bd64950354a2001125999dc81c51f17b3cb67e9e9d27c2076549ce6d"
+content-hash = "1ae7485bb26c03845976f69f236f3818bdb5b9fc4e4e8c085f5f847872a90cef"
