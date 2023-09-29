@@ -1,14 +1,11 @@
 from transformers import MBart50TokenizerFast, MBartForConditionalGeneration
 
-
-
-
 class MbartModel():
     def __init__(self) -> None:
         self.tokenizer = MBart50TokenizerFast.from_pretrained('Narrativa/mbart-large-50-finetuned-opus-en-pt-translation')
         self.model = MBartForConditionalGeneration.from_pretrained('Narrativa/mbart-large-50-finetuned-opus-en-pt-translation')
             
-    def translate_mbart(self, sentence):
+    def translate_text(self, sentence):
         self.tokenizer.src_lang = 'en_XX'
 
         inputs = self.tokenizer(sentence , return_tensors="pt", padding=True)

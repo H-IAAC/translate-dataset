@@ -8,6 +8,7 @@ class MarianModel():
         model_name = "Helsinki-NLP/opus-mt-en-ROMANCE"
         self.tokenizer = MarianTokenizer.from_pretrained(model_name)
         self.model = MarianMTModel.from_pretrained(model_name)
+        
     def translate_text(self , sentence):
 
         inputs = self.tokenizer('>>pt<<' + sentence if len(sentence) < 512 else '>>pt<<' + sentence[:512] , return_tensors="pt", padding=True)   
@@ -20,4 +21,4 @@ class MarianModel():
         )
         sentence_decoded = self.tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
         
-        return sentence_decoded
+        return sentence_decoded[0]

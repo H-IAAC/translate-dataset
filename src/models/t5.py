@@ -11,7 +11,7 @@ class t5Model():
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     
-    def traduzir_t5(self, sentence):
+    def translate_text(self, sentence):
         """
         Translates the input sentence.
 
@@ -33,4 +33,4 @@ class t5Model():
             output_sequences, skip_special_tokens=True
         )
 
-        return sentence_decoded
+        return sentence_decoded[0]
