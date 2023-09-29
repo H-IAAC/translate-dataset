@@ -1,17 +1,19 @@
-from transformers import MBart50TokenizerFast, MBartForConditionalGeneration
+import logging
+
+from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
+
+logger = logging.getLogger(__name__)
 
 
-class MbartModel:
+class MarianModel:
     def __init__(self) -> None:
-        self.tokenizer = MBart50TokenizerFast.from_pretrained(
-            "Narrativa/mbart-large-50-finetuned-opus-en-pt-translation"
+        self.model = M2M100ForConditionalGeneration.from_pretrained(
+            "facebook/m2m100_418M"
         )
-        self.model = MBartForConditionalGeneration.from_pretrained(
-            "Narrativa/mbart-large-50-finetuned-opus-en-pt-translation"
-        )
+        self.tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
 
     def translate_text(self, sentence):
-        self.tokenizer.src_lang = "en_XX"
+        # if count == text_limit: break
 
         inputs = self.tokenizer(sentence, return_tensors="pt", padding=True)
 
@@ -19,7 +21,7 @@ class MbartModel:
             input_ids=inputs["input_ids"],
             attention_mask=inputs["attention_mask"],
             do_sample=False,  # disable sampling to test if batching affects output
-            forced_bos_token_id=self.tokenizer.lang_code_to_id["pt_XX"],
+            forced_bos_token_id=self.tokenizer.get_lang_id("pt"),
         )
 
         sentence_decoded = self.tokenizer.batch_decode(
