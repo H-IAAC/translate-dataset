@@ -6,8 +6,9 @@ from tqdm import tqdm
 
 from models.marian import MarianModel
 from models.mbart import MbartModel
-from models.nlbb import NlbbModel
+from models.nllb import NllbModel
 from models.t5 import t5Model
+from models.m2m100 import M2m100Model
 from utilities.check_csv_restricoes import verificar_restricoes_csv
 
 logger = logging.getLogger(__name__)
@@ -19,10 +20,12 @@ def select_model(modelname):
         return MarianModel()
     elif modelname == "t5":
         return t5Model()
-    elif modelname == "nlbb":
-        return NlbbModel()
+    elif modelname == "nllb":
+        return NllbModel()
     elif modelname == "mbart":
         return MbartModel()
+    elif modelname == "m2m100":
+        return M2m100Model()
     logger.debug("Provided invalid modelname!")
 
 
@@ -42,7 +45,7 @@ def translate_csv(
         model = select_model(modelname)
         logger.info(f"Initializing {modelname} model ... done")
         dataframe = pd.read_csv(csv_path)
-        dataframe = dataframe[:10]
+        dataframe = dataframe[:100]
         for collum in collumns:
             translations = []
             for index, row in tqdm(
@@ -52,9 +55,10 @@ def translate_csv(
                 translated_text = model.translate_text(text)
                 translations.append(translated_text)
             translated_collum_name = f"{collum} {modelname} translation"
-            dataframe[translated_collum_name] = translations
-
-    dataframe.to_csv(f"{filename}_translation.csv")
+            dataframe.insert(len(dataframe.columns),translated_collum_name,translations)
+            #dataframe[translated_collum_name] = translations
+        dataframe.to_csv(f"{filename}_translation.csv")
+    logger.info(f"Saving file...")
 
 
 def translate_webdataset(url, models: List[str]):
@@ -68,8 +72,9 @@ if __name__ == "__main__":
     #    "Digite o caminho do destino do arquivo CSV traduzido: "
     # )
     translate_csv(
-        "PATH TO FILE HERE",
-        collumns=[" Category", " Question"],
-        models=["marian"],
-        filename="jeopardy",
+        "/home/guilhermeramirez/nlp/translate-dataset/data/raw/test.csv",
+        collumns=["article","highlights"],
+            #" Category", " Question"],
+        models=["m2m100"],
+        filename="cnn_inteiro_m2m100",
     )

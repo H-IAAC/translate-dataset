@@ -5,7 +5,7 @@ from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 logger = logging.getLogger(__name__)
 
 
-class MarianModel:
+class M2m100Model:
     def __init__(self) -> None:
         self.model = M2M100ForConditionalGeneration.from_pretrained(
             "facebook/m2m100_418M"
@@ -27,4 +27,4 @@ class MarianModel:
         sentence_decoded = self.tokenizer.batch_decode(
             output_sequences, skip_special_tokens=True
         )
-        return sentence_decoded
+        return sentence_decoded[0]
