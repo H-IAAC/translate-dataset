@@ -56,3 +56,11 @@ verificar_e_quebrar:
 	@echo "Verificando restrições e quebrando o texto..."
 	@$(MAKE) check_restricoes ARQUIVO_ENTRADA=$(ARQUIVO_ENTRADA)
 	@$(MAKE) break_text ARQUIVO_ENTRADA=$(ARQUIVO_ENTRADA)
+
+translate_marian:
+	@echo "Traduzindo texto..."	
+	poetry run python3 src/utilities/translate_marian.py
+
+translate_t5:
+	@echo "Traduzindo texto..."	
+	poetry run python3 src/utilities/translate_t5.py
