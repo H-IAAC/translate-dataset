@@ -1,5 +1,6 @@
-from google.cloud import translate_v2 as translate
 import os
+
+from google.cloud import translate_v2 as translate
 
 
 def traduzir_texto(texto, idioma_destino, caminho_chave_api):

@@ -1,8 +1,12 @@
 import logging
 
 import pandas as pd
-from transformers import (AutoModelForSeq2SeqLM, AutoTokenizer,
-                          T5ForConditionalGeneration, T5Tokenizer)
+from transformers import (
+    AutoModelForSeq2SeqLM,
+    AutoTokenizer,
+    T5ForConditionalGeneration,
+    T5Tokenizer,
+)
 
 
 class t5Model:

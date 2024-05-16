@@ -6,6 +6,7 @@ import sys
 import pytest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from src.utilities.break_text import CSVProcessor
 
 # Adiciona a pasta raiz ao PYTHONPATH.

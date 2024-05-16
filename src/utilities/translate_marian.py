@@ -1,17 +1,18 @@
 """
-Este módulo contém funções para traduzir arquivos CSV presentes em uma pasta para o 
-idioma de destino utilizando o modelo MarianMT. 
-Os arquivos traduzidos são salvos em uma pasta de saída.
+Este módulo contém funções para traduzir arquivos CSV presentes em uma pasta
+para o idioma de destino utilizando o modelo MarianMT.Os arquivos traduzidos
+são salvos em uma pasta de saída.
 
 Funções:
 - traduzir_csv: Traduz os arquivos CSV presentes na pasta de entrada.
 - obter_arquivos_csv: Obtém a lista de arquivos CSV presentes em uma pasta.
 - traduzir_arquivo_csv: Traduz um arquivo CSV para o idioma de destino.
-- traduzir_texto: 
-    Realiza a tradução de um texto para o idioma de destino utilizando o modelo MarianMT.
+- traduzir_texto: Realiza a tradução de um texto para o idioma de destino
+    utilizando o modelo MarianMT.
 
 Exemplo de uso:
-    O módulo pode ser executado como um script, solicitando ao usuário os parâmetros necessários:
+O módulo pode ser executado como um script, solicitando ao usuário os
+parâmetros necessários:
 
     $ python nome_do_modulo.py
 
@@ -20,9 +21,8 @@ Exemplo de uso:
 import csv
 import logging
 import os
-from transformers import MarianMTModel, MarianTokenizer
 
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from transformers import MarianMTModel, MarianTokenizer
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -31,16 +31,19 @@ logging.basicConfig(
 
 def traduzir_csv(caminho_pasta_entrada, caminho_pasta_saida=None, idioma_destino="pt"):
     """
-    Traduz os arquivos CSV presentes na pasta de entrada para o idioma de destino
-    e salva os arquivos traduzidos na pasta de saída.
+    Traduz os arquivos CSV presentes na pasta de entrada para o idioma de
+    destino e salva os arquivos traduzidos na pasta de saída.
 
     Args:
         caminho_pasta_entrada (str):
-            O caminho da pasta de entrada contendo os arquivos CSV a serem traduzidos.
+            O caminho da pasta de entrada contendo os arquivos CSV a serem
+            traduzidos.
         caminho_pasta_saida (str, optional):
-            O caminho da pasta de saída onde os arquivos traduzidos serão salvos.
+            O caminho da pasta de saída onde os arquivos traduzidos serão
+            salvos.
 
-            Se não for fornecido, será criada uma pasta "traducao" dentro da pasta de entrada.
+            Se não for fornecido, será criada uma pasta "traducao" dentro
+            da pasta de entrada.
         idioma_destino (str, optional):
             O idioma de destino para a tradução. Default é "pt" (português).
 
@@ -84,11 +87,13 @@ def traduzir_arquivo_csv(
     caminho_arquivo_entrada, caminho_arquivo_saida, idioma_destino
 ):
     """
-    Traduz o arquivo CSV de entrada para o idioma de destino e salva o arquivo traduzido.
+    Traduz o arquivo CSV de entrada para o idioma de destino e salva o
+    arquivo traduzido.
 
     Args:
         caminho_arquivo_entrada (str): O caminho do arquivo CSV de entrada.
-        caminho_arquivo_saida (str): O caminho do arquivo CSV de saída traduzido.
+        caminho_arquivo_saida (str): O caminho do arquivo CSV de saída
+                                     traduzido.
         idioma_destino (str): O idioma de destino para a tradução.
 
     """
@@ -114,25 +119,33 @@ def traduzir_marianmt(sentence):
     tokenizer = MarianTokenizer.from_pretrained(model_name)
     model = MarianMTModel.from_pretrained(model_name)
 
-    inputs = tokenizer('>>pt<<' + sentence if len(sentence) < 512 else '>>pt<<' + sentence[:512] , return_tensors="pt", padding=True)   
+    inputs = tokenizer(
+        ">>pt<<" + sentence if len(sentence) < 512 else ">>pt<<" + sentence[:512],
+        return_tensors="pt",
+        padding=True,
+    )
 
     output_sequences = model.generate(
         input_ids=inputs["input_ids"],
         attention_mask=inputs["attention_mask"],
-        do_sample=False,  # disable sampling to test if batching affects output,
-        max_length=1024
+        do_sample=False,  # if batching affects output,
+        max_length=1024,
     )
-    sentence_decoded = tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
-    print("Traducao:" , sentence_decoded)
+    sentence_decoded = tokenizer.batch_decode(
+        output_sequences, skip_special_tokens=True
+    )
+    print("Traducao:", sentence_decoded)
     return sentence_decoded
 
 
 if __name__ == "__main__":
     # Configuração dos parâmetros de tradução
-    #caminho_pasta_entrada_original = "/home/guilhermeramirez/nlp/translate-dataset/data/proc/divididos"  # input("Digite o caminho da pasta de arquivo CSV: ")
-    #caminho_pasta_saida_traduzida = (
+    # caminho_pasta_entrada_original =
+    # "/home/guilhermeramirez/nlp/translate-dataset/data/proc/divididos"
+    # input("Digite o caminho da pasta de arquivo CSV: ")
+    # caminho_pasta_saida_traduzida = (
     #    "/home/guilhermeramirez/nlp/translate-dataset/data"  # input(
-    #)
+    # )
     caminho_pasta_entrada_original = input("Digite o caminho da pasta de arquivo CSV: ")
     caminho_pasta_saida_traduzida = input(
         "Digite o caminho do destino do arquivo CSV traduzido: "

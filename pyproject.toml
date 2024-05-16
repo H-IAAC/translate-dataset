@@ -7,8 +7,17 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "3.12.3"
+black = "^24.4.2"
+flake8 = "^7.0.0"
+isort = "^5.13.2"
+pip-audit = "^2.7.3"
+taskipy = "^1.12.2"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.taskipy.tasks]
+format = "isort . && black ."
