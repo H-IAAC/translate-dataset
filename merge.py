@@ -1,3 +1,5 @@
+"""Merge module."""
+
 import csv
 import logging
 import os
@@ -9,8 +11,9 @@ logging.basicConfig(
 
 def merge_csv_files(directory_path, output_file):
     """
-    Lê vários arquivos CSV separados em um diretório e cria um novo
-    arquivo com a fusão de todos eles. O script une os arquivos CSV que
+    Combina diferentes arquivos .csv em 1 só.
+
+    O script une os arquivos CSV que
     possuem um padrão de nome "nome_parte_X_Y.csv", onde X é o mesmo
     para diferentes partes e Y varia, em uma única linha no novo arquivo CSV.
 
@@ -64,3 +67,4 @@ if __name__ == "__main__":
 
     # Execução do merge
     merge_csv_files(directory_path, output_file)
+    print("Hello!")
