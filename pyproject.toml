@@ -20,6 +20,8 @@ pymdown-extensions = "^10.8.1"
 pre-commit = "^3.7.1"
 pytest = "^8.2.0"
 google-cloud = "^0.34.0"
+pandas = "^2.2.2"
+tqdm = "^4.66.4"
 
 
 [build-system]
