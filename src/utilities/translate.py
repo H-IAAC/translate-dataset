@@ -1,6 +1,5 @@
-"""
-Este módulo contém funções para traduzir arquivos CSV presentes em uma pasta
-para o idioma de destino utilizando a API do Google Translate.
+"""Este módulo contém funções para traduzir arquivos CSV utilizando Google.
+
 Os arquivos traduzidos são salvos em uma pasta de saída.
 
 Funções:
@@ -39,9 +38,7 @@ def traduzir_csv(
     idioma_destino="pt",
     caminho_chave_api=None,
 ):
-    """
-    Traduz os arquivos CSV presentes na pasta de entrada para o idioma de
-    destino e salva os arquivos traduzidos na pasta de saída.
+    """Traduz os arquivos CSV presentes na pasta de entrada.
 
     Args:
         caminho_pasta_entrada (str):
@@ -58,7 +55,6 @@ def traduzir_csv(
         caminho_chave_api (str, optional):
             O caminho do arquivo JSON contendo a chave de API do Google
             Translate.
-
     """
     if not os.path.exists(caminho_pasta_entrada):
         logging.error("A pasta de entrada '%s' não existe.", caminho_pasta_entrada)
@@ -102,9 +98,7 @@ def obter_arquivos_csv(caminho_pasta):
 def traduzir_arquivo_csv(
     caminho_arquivo_entrada, caminho_arquivo_saida, idioma_destino, caminho_chave_api
 ):
-    """
-    Traduz o arquivo CSV de entrada para o idioma de destino e salva o arquivo
-    traduzido.
+    """Traduz CSV de entrada para o idioma de destino e salva.
 
     Args:
         caminho_arquivo_entrada (str): O caminho do arquivo CSV de entrada.
@@ -114,7 +108,6 @@ def traduzir_arquivo_csv(
         caminho_chave_api (str):
             O caminho do arquivo JSON contendo a chave de API do Google
             Translate.
-
     """
     traducoes = []
 
@@ -127,6 +120,7 @@ def traduzir_arquivo_csv(
             traducoes.append([traducao])
 
     with open(caminho_arquivo_saida, "w", newline="", encoding="utf-8") as arquivo_csv:
+
         escritor_csv = csv.writer(arquivo_csv)
         escritor_csv.writerows(traducoes)
 
@@ -134,9 +128,7 @@ def traduzir_arquivo_csv(
 
 
 def traduzir_texto(texto, idioma_destino, caminho_chave_api):
-    """
-    Realiza a tradução do texto para o idioma de destino utilizando a
-    API do Google Translate.
+    """Realiza a tradução utilizando a API do Google Translate.
 
     Args:
         texto (str): O texto a ser traduzido.
@@ -147,7 +139,6 @@ def traduzir_texto(texto, idioma_destino, caminho_chave_api):
 
     Returns:
         str: O texto traduzido.
-
     """
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = caminho_chave_api
     client = translate.Client()

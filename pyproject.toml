@@ -17,12 +17,17 @@ mkdocstrings-python = "^1.10.2"
 pygments = "^2.18.0"
 mkdocs-material = "^9.5.23"
 pymdown-extensions = "^10.8.1"
+pre-commit = "^3.7.1"
+pytest = "^8.2.0"
+google-cloud = "^0.34.0"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.isort]
+profile = "black"
 
 [tool.taskipy.tasks]
 format = "isort . && black ."

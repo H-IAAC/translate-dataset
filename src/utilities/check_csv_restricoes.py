@@ -16,7 +16,6 @@ def verificar_restricoes_csv(caminho_arquivo: str) -> None:
         UnicodeDecodeError: Se ocorrer um erro de decodificação do arquivo CSV.
         csv.Error: Se ocorrer um erro relacionado à leitura do arquivo CSV.
     """
-
     # Configurar o logger
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
@@ -53,7 +52,8 @@ def verificar_restricoes_csv(caminho_arquivo: str) -> None:
             for linha in leitor_csv:
                 if len(linha) != numero_colunas:
                     logger.info(
-                        "O arquivo CSV possui linhas com números de colunas diferentes."
+                        "O arquivo CSV possui linhas com números de colunas \
+                            diferentes."
                     )
                     return
 

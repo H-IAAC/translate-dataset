@@ -12,5 +12,5 @@ Tools for translate dataset usin
 * Especialista Android: Daniel Miranda (daniel.miranda@eldorado.org.br)
 
 # How to Use
-Install Poetry 
+Install Poetry
 make activate

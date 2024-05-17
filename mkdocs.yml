@@ -8,7 +8,7 @@ theme:
 repo_name: "H-IAAC/translate-dataset/"
 repo_url: "https://github.com/H-IAAC/translate-dataset"
 
-markdown_extensions: 
+markdown_extensions:
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
