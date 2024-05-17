@@ -4,11 +4,11 @@ from typing import List
 import pandas as pd
 from tqdm import tqdm
 
+from models.m2m100 import M2m100Model
 from models.marian import MarianModel
 from models.mbart import MbartModel
 from models.nllb import NllbModel
 from models.t5 import t5Model
-from models.m2m100 import M2m100Model
 from utilities.check_csv_restricoes import verificar_restricoes_csv
 
 logger = logging.getLogger(__name__)
@@ -55,8 +55,10 @@ def translate_csv(
                 translated_text = model.translate_text(text)
                 translations.append(translated_text)
             translated_collum_name = f"{collum} {modelname} translation"
-            dataframe.insert(len(dataframe.columns),translated_collum_name,translations)
-            #dataframe[translated_collum_name] = translations
+            dataframe.insert(
+                len(dataframe.columns), translated_collum_name, translations
+            )
+            # dataframe[translated_collum_name] = translations
         dataframe.to_csv(f"{filename}_translation.csv")
     logger.info(f"Saving file...")
 
@@ -73,8 +75,8 @@ if __name__ == "__main__":
     # )
     translate_csv(
         "/home/guilhermeramirez/nlp/translate-dataset/data/raw/test.csv",
-        collumns=["article","highlights"],
-            #" Category", " Question"],
+        collumns=["article", "highlights"],
+        # " Category", " Question"],
         models=["m2m100"],
         filename="cnn_inteiro_m2m100",
     )

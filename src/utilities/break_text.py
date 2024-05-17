@@ -1,28 +1,39 @@
-"""
-Este módulo contém funções para verificar o limite de caracteres em um arquivo CSV e
-dividir o arquivo em partes menores se necessário. Ele também fornece funções de utilidade
-para contar o número de linhas em um arquivo CSV, dividir um texto em subtextos com base
-em um limite de tamanho e monitorar o progresso do processamento.
+"""Este módulo contém funções para verificar o limite de caracteres.
+
+Ele também fornece funções de utilidade para contar o número de linhas em um
+arquivo CSV, dividir um texto em subtextos com base em um limite de tamanho
+e monitorar o progresso do processamento.
 
 Funções:
-- verificar_e_dividir_limite_caracteres_csv: Verifica o limite de caracteres em um arquivo CSV e
-   divide o arquivo se necessário.
+- verificar_e_dividir_limite_caracteres_csv:
+    Verifica o limite de caracteres em um arquivo CSV e divide o arquivo
+    se necessário.
+
 - contar_linhas_csv: Conta o número de linhas em um arquivo CSV.
-- dividir_texto_csv: Divide o texto de um arquivo CSV em partes menores e gera arquivos 
-CSV correspondentes.
-- dividir_texto_pandas: Divide o texto de um arquivo CSV usando pandas e gera arquivos CSV 
-correspondentes.
-- dividir_texto_em_subtextos: Divide um texto em subtextos com base em um limite de tamanho.
-- monitorar_progresso: Monitora o progresso do processamento e imprime a porcentagem de conclusão.
+
+- dividir_texto_csv:
+    Divide o texto de um arquivo CSV em partes menores e gera arquivos
+    CSV correspondentes.
+
+- dividir_texto_pandas:
+    Divide o texto de um arquivo CSV usando pandas e gera arquivos CSV
+    correspondentes.
+
+- dividir_texto_em_subtextos:
+    Divide um texto em subtextos com base em um limite de tamanho.
+
+- monitorar_progresso:
+    Monitora o progresso do processamento e imprime a porcentagem de
+    conclusão.
 
 Exemplo de uso:
-    Este módulo pode ser usado como um script para verificar e dividir um arquivo CSV a 
-    partir da linha de comando:
+    Este módulo pode ser usado como um script para verificar e dividir
+    um arquivo CSV a partir da linha de comando:
 
     $ python nome_do_modulo.py
 
-    Em seguida, o usuário será solicitado a fornecer informações sobre o arquivo CSV e as 
-    configurações desejadas.
+    Em seguida, o usuário será solicitado a fornecer informações sobre
+    o arquivo CSV e as configurações desejadas.
 """
 
 import csv
@@ -58,10 +69,10 @@ class CSVProcessor:
             nome_coluna (str): O nome da coluna a ser processada.
             tamanho_maximo (int): O tamanho máximo para a divisão do texto.
             num_linhas (int): O número máximo de linhas a serem lidas no CSV.
-            pasta_saida (str): O diretório onde o arquivo CSV processado será armazenado.
+            pasta_saida (str): O diretório onde o arquivo CSV processado será
+                               armazenado.
             nome_arquivo (str): O nome do arquivo CSV processado.
         """
-
         self.caminho_arquivo = caminho_arquivo
         self.nome_coluna = nome_coluna
         self.tamanho_maximo = tamanho_maximo
@@ -117,7 +128,8 @@ class CSVProcessor:
 
         Args:
             nome_arquivo_base (str): O nome base do arquivo CSV.
-            pasta_arquivo (str): O diretório onde o arquivo CSV processado será armazenado.
+            pasta_arquivo (str): O diretório onde o arquivo CSV processado
+                                 será armazenado.
         """
         with open(self.caminho_arquivo, "r", encoding="utf-8") as arquivo_csv:
             leitor_csv = csv.reader(arquivo_csv)
@@ -148,7 +160,8 @@ class CSVProcessor:
 
         Args:
             nome_arquivo_base (str): O nome base do arquivo CSV.
-            pasta_arquivo (str): O diretório onde o arquivo CSV processado será armazenado.
+            pasta_arquivo (str): O diretório onde o arquivo CSV
+                                 processado será armazenado.
         """
         data_frame = pd.read_csv(
             self.caminho_arquivo, engine="python", nrows=self.num_linhas
@@ -173,7 +186,8 @@ class CSVProcessor:
 
         Args:
             texto (str): O texto a ser dividido.
-            limite_tamanho (int, optional): O limite de tamanho para a divisão do texto.
+            limite_tamanho (int, optional):
+                O limite de tamanho para a divisão do texto.
             Defaults to 5000.
 
         Returns:

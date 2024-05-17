@@ -1,23 +1,24 @@
-"""
-Este módulo contém funções para traduzir arquivos CSV presentes em uma pasta para o 
-idioma de destino utilizando a API do Google Translate. 
+"""Este módulo contém funções para traduzir arquivos CSV utilizando Google.
+
 Os arquivos traduzidos são salvos em uma pasta de saída.
 
 Funções:
 - traduzir_csv: Traduz os arquivos CSV presentes na pasta de entrada.
 - obter_arquivos_csv: Obtém a lista de arquivos CSV presentes em uma pasta.
 - traduzir_arquivo_csv: Traduz um arquivo CSV para o idioma de destino.
-- traduzir_texto: 
-    Realiza a tradução de um texto para o idioma de destino utilizando a API do Google Translate.
+- traduzir_texto:
+    Realiza a tradução de um texto para o idioma de destino utilizando a
+    API do Google Translate.
 
 Exemplo de uso:
-    O módulo pode ser executado como um script, solicitando ao usuário os parâmetros necessários:
+    O módulo pode ser executado como um script, solicitando ao usuário os
+    parâmetros necessários:
 
     $ python nome_do_modulo.py
 
-    Em seguida, o usuário será solicitado a fornecer o caminho da pasta de entrada, 
-    o caminho da pasta de saída, o idioma de destino e o caminho do arquivo JSON 
-    contendo a chave de API do Google Translate.
+    Em seguida, o usuário será solicitado a fornecer o caminho da pasta de
+    entrada, o caminho da pasta de saída, o idioma de destino e o caminho
+    do arquivo JSON contendo a chave de API do Google Translate.
 """
 
 import csv
@@ -37,22 +38,23 @@ def traduzir_csv(
     idioma_destino="pt",
     caminho_chave_api=None,
 ):
-    """
-    Traduz os arquivos CSV presentes na pasta de entrada para o idioma de destino
-    e salva os arquivos traduzidos na pasta de saída.
+    """Traduz os arquivos CSV presentes na pasta de entrada.
 
     Args:
         caminho_pasta_entrada (str):
-            O caminho da pasta de entrada contendo os arquivos CSV a serem traduzidos.
+            O caminho da pasta de entrada contendo os arquivos CSV a serem
+            traduzidos.
         caminho_pasta_saida (str, optional):
-            O caminho da pasta de saída onde os arquivos traduzidos serão salvos.
+            O caminho da pasta de saída onde os arquivos traduzidos serão
+            salvos.
 
-            Se não for fornecido, será criada uma pasta "traducao" dentro da pasta de entrada.
+            Se não for fornecido, será criada uma pasta "traducao" dentro
+            da pasta de entrada.
         idioma_destino (str, optional):
             O idioma de destino para a tradução. Default é "pt" (português).
         caminho_chave_api (str, optional):
-            O caminho do arquivo JSON contendo a chave de API do Google Translate.
-
+            O caminho do arquivo JSON contendo a chave de API do Google
+            Translate.
     """
     if not os.path.exists(caminho_pasta_entrada):
         logging.error("A pasta de entrada '%s' não existe.", caminho_pasta_entrada)
@@ -96,16 +98,16 @@ def obter_arquivos_csv(caminho_pasta):
 def traduzir_arquivo_csv(
     caminho_arquivo_entrada, caminho_arquivo_saida, idioma_destino, caminho_chave_api
 ):
-    """
-    Traduz o arquivo CSV de entrada para o idioma de destino e salva o arquivo traduzido.
+    """Traduz CSV de entrada para o idioma de destino e salva.
 
     Args:
         caminho_arquivo_entrada (str): O caminho do arquivo CSV de entrada.
-        caminho_arquivo_saida (str): O caminho do arquivo CSV de saída traduzido.
+        caminho_arquivo_saida (str): O caminho do arquivo CSV de saída
+                                     traduzido.
         idioma_destino (str): O idioma de destino para a tradução.
         caminho_chave_api (str):
-            O caminho do arquivo JSON contendo a chave de API do Google Translate.
-
+            O caminho do arquivo JSON contendo a chave de API do Google
+            Translate.
     """
     traducoes = []
 
@@ -118,6 +120,7 @@ def traduzir_arquivo_csv(
             traducoes.append([traducao])
 
     with open(caminho_arquivo_saida, "w", newline="", encoding="utf-8") as arquivo_csv:
+
         escritor_csv = csv.writer(arquivo_csv)
         escritor_csv.writerows(traducoes)
 
@@ -125,18 +128,17 @@ def traduzir_arquivo_csv(
 
 
 def traduzir_texto(texto, idioma_destino, caminho_chave_api):
-    """
-    Realiza a tradução do texto para o idioma de destino utilizando a API do Google Translate.
+    """Realiza a tradução utilizando a API do Google Translate.
 
     Args:
         texto (str): O texto a ser traduzido.
         idioma_destino (str): O idioma de destino para a tradução.
         caminho_chave_api (str):
-            O caminho do arquivo JSON contendo a chave de API do Google Translate.
+            O caminho do arquivo JSON contendo a chave de API do
+            Google Translate.
 
     Returns:
         str: O texto traduzido.
-
     """
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = caminho_chave_api
     client = translate.Client()

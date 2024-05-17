@@ -1,39 +1,36 @@
 [tool.poetry]
-name = "translate_dataset"
+name = "translate-dataset"
 version = "0.1.0"
-description = ""
+description = "Package for PT datasets translation using open source machine translation models."
 authors = ["sildolfogomes <sildolfo.neto@eldorado.org.br>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
-numpy = "^1.23.1"
-pandas = "^1.4.3"
-pre-commit = "^2.20.0"
-black = "^22.6.0"
-flake8 = "^5.0.3"
-isort = "^5.10.1"
-interrogate = "^1.5.0"
-Hydra = "^2.5"
-dvc = "^2.17.0"
-nbstripout = "^0.6.0"
-pdoc = "^12.0.2"
-google-cloud-translate = "^3.11.1"
-pytest = "^7.4.0"
-pylint = "^2.17.4"
-tree = "^0.2.4"
-jupyter = "^1.0.0"
-ipykernel = "^6.23.3"
-transformers = "^4.31.0"
-seaborn = "^0.12.2"
-sentencepiece = "^0.1.99"
-torch = "2.0.0"
-sacremoses = "^0.0.53"
-marian-client = "^0.16.0"
-webdataset = "^0.2.57"
+python = "3.12.3"
+black = "^24.4.2"
+flake8 = "^7.0.0"
+isort = "^5.13.2"
+pip-audit = "^2.7.3"
+taskipy = "^1.12.2"
+mkdocs = "^1.6.0"
+mkdocstrings-python = "^1.10.2"
+pygments = "^2.18.0"
+mkdocs-material = "^9.5.23"
+pymdown-extensions = "^10.8.1"
+pre-commit = "^3.7.1"
+pytest = "^8.2.0"
+google-cloud = "^0.34.0"
+pandas = "^2.2.2"
+tqdm = "^4.66.4"
 
-[tool.poetry.dev-dependencies]
-matplotlib = "^3.5.2"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+
+[tool.taskipy.tasks]
+format = "isort . && black ."
+kill = "kill -9 $(lsof -t -i :8000)"

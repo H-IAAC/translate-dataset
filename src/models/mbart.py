@@ -1,8 +1,13 @@
+"""MBART module."""
+
 from transformers import MBart50TokenizerFast, MBartForConditionalGeneration
 
 
 class MbartModel:
+    """MBART model class."""
+
     def __init__(self) -> None:
+        """Init function."""
         self.tokenizer = MBart50TokenizerFast.from_pretrained(
             "Narrativa/mbart-large-50-finetuned-opus-en-pt-translation"
         )
@@ -11,6 +16,7 @@ class MbartModel:
         )
 
     def translate_text(self, sentence):
+        """Translate text."""
         self.tokenizer.src_lang = "en_XX"
 
         inputs = self.tokenizer(sentence, return_tensors="pt", padding=True)
@@ -18,7 +24,7 @@ class MbartModel:
         output_sequences = self.model.generate(
             input_ids=inputs["input_ids"],
             attention_mask=inputs["attention_mask"],
-            do_sample=False,  # disable sampling to test if batching affects output
+            do_sample=False,  # test if batching affects output
             forced_bos_token_id=self.tokenizer.lang_code_to_id["pt_XX"],
         )
 

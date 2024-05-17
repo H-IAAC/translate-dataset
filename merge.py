@@ -1,19 +1,26 @@
+"""Merge module."""
+
 import csv
 import logging
 import os
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 
 def merge_csv_files(directory_path, output_file):
     """
-    Lê vários arquivos CSV separados em um diretório e cria um novo arquivo com a fusão de todos eles.
-    O script une os arquivos CSV que possuem um padrão de nome "nome_parte_X_Y.csv",
-    onde X é o mesmo para diferentes partes e Y varia, em uma única linha no novo arquivo CSV.
+    Combina diferentes arquivos .csv em 1 só.
+
+    O script une os arquivos CSV que
+    possuem um padrão de nome "nome_parte_X_Y.csv", onde X é o mesmo
+    para diferentes partes e Y varia, em uma única linha no novo arquivo CSV.
 
     Args:
-        directory_path (str): O caminho do diretório contendo os arquivos CSV separados.
+        directory_path (str): O caminho do diretório contendo os arquivos CSV
+        separados.
         output_file (str): O caminho do arquivo de saída que será gerado.
-
     """
     merged_data = []
     current_row = []
@@ -28,11 +35,15 @@ def merge_csv_files(directory_path, output_file):
                     header = rows[0]
                 if len(rows) == 1:
                     current_row.extend(rows[0])
-                elif len(rows) >= 2 and filename.endswith("_1.csv") and len(rows[1]) >= 1:
+                elif (
+                    len(rows) >= 2 and filename.endswith("_1.csv") and len(rows[1]) >= 1
+                ):
                     if current_row:
                         merged_data.append(current_row)
                     current_row = rows[1]
-                elif len(rows) >= 2 and filename.endswith("_2.csv") and len(rows[1]) >= 1:
+                elif (
+                    len(rows) >= 2 and filename.endswith("_2.csv") and len(rows[1]) >= 1
+                ):
                     current_row.extend(rows[1])
 
     if current_row:
@@ -46,10 +57,14 @@ def merge_csv_files(directory_path, output_file):
 
     logging.info("Arquivo CSV merged gerado: %s", output_file)
 
+
 if __name__ == "__main__":
     # Configuração dos parâmetros
-    directory_path = input("Digite o caminho do diretório contendo os arquivos CSV separados: ")
+    directory_path = input(
+        "Digite o caminho do diretório contendo os arquivos CSV separados: "
+    )
     output_file = input("Digite o caminho do arquivo CSV de saída que será gerado: ")
 
     # Execução do merge
     merge_csv_files(directory_path, output_file)
+    print("Hello!")
